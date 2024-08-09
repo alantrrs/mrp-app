@@ -1,19 +1,27 @@
 import { 
   HomeIcon, 
-  Cog6ToothIcon, 
   CubeIcon, 
   BuildingStorefrontIcon, 
   WrenchScrewdriverIcon, 
   TruckIcon,
-  ChartBarIcon
+  Cog8ToothIcon,
+  CalendarDateRangeIcon
 } from '@heroicons/react/24/outline'
-import { Button } from './lib/button'
 import { SidebarLayout } from './lib/sidebar-layout'
 import { Sidebar, SidebarHeader, SidebarBody, SidebarFooter, SidebarItem, SidebarSection, SidebarLabel } from './lib/sidebar'
 import { Navbar, NavbarItem } from './lib/navbar'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import MRP from './components/mrp/mrp.page'
+import Parts from './components/parts/parts.page'
+import Home from './components/home.page'
 
-const AppLayout = () => {
+// Dummy components for each route
+const Inventory = () => <div>Inventory Page</div>
+const Production = () => <div>Production Page</div>
+const Procurement = () => <div>Procurement Page</div>
+const Settings = () => <div>Settings Page</div>
+
+const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SidebarLayout
       navbar={
@@ -26,14 +34,14 @@ const AppLayout = () => {
           <SidebarHeader>
             <SidebarItem href='/'>
               <HomeIcon />
-              <SidebarLabel>Dashboard</SidebarLabel>
+              <SidebarLabel>Optimal MRP</SidebarLabel>
             </SidebarItem>
           </SidebarHeader>
           <SidebarBody>
             <SidebarSection>
               <SidebarItem href='/mrp'>
-                <Cog6ToothIcon />
-                <SidebarLabel>MRP</SidebarLabel>
+                <CalendarDateRangeIcon />
+                <SidebarLabel>Master Schedule</SidebarLabel>
               </SidebarItem>
               <SidebarItem href='/parts'>
                 <CubeIcon />
@@ -55,23 +63,38 @@ const AppLayout = () => {
           </SidebarBody>
           <SidebarFooter>
             <SidebarItem href='/settings'>
-              <ChartBarIcon />
-              <SidebarLabel>Analytics</SidebarLabel>
+              <Cog8ToothIcon />
+              <SidebarLabel>Settings</SidebarLabel>
             </SidebarItem>
           </SidebarFooter>
         </Sidebar>
       }
     >
-      <h1 className='text-2xl font-bold mb-4'>Optimal MRP</h1>
-      <Button outline>Get Started</Button>
+      {children}
     </SidebarLayout>
+  )
+}
+
+const AppRoutes = () => {
+  return (
+    <Routes>
+      <Route path='/' element={<Home />} />
+      <Route path='/mrp' element={<MRP />} />
+      <Route path='/parts' element={<Parts />} />
+      <Route path='/inventory' element={<Inventory />} />
+      <Route path='/production' element={<Production />} />
+      <Route path='/procurement' element={<Procurement />} />
+      <Route path='/settings' element={<Settings />} />
+    </Routes>
   )
 }
 
 const App = () => {
   return (
     <BrowserRouter>
-      <AppLayout />
+      <AppLayout>
+        <AppRoutes />
+      </AppLayout>
     </BrowserRouter>
   )
 }
