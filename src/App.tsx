@@ -14,12 +14,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import MRP from './components/mrp/mrp.page'
 import Parts from './components/parts/parts.page'
 import Home from './components/home.page'
+import Settings from './components/settings.page'
 
 // Dummy components for each route
 const Inventory = () => <div>Inventory Page</div>
 const Production = () => <div>Production Page</div>
 const Procurement = () => <div>Procurement Page</div>
-const Settings = () => <div>Settings Page</div>
 
 const AppLayout = ({ children }: { children: React.ReactNode }) => {
   return (
